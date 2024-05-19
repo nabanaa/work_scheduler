@@ -1,0 +1,46 @@
+{
+    "employees": [
+        {
+            "name": "Testowy 1",
+            "availability": {
+                "2024-05-05": "08:00 - 16:00",
+                "2024-05-06": "09:00 - 10:00",
+                "2024-06-05": "09:00 - 15:00",
+                "2024-05-02": "10:00 - 15:00"
+            }
+        },
+        {
+            "name": "Testowy 2",
+            "availability": {}
+        },
+        {
+            "name": "Testowy 3",
+            "availability": {
+                "2024-05-05": "15:00 - 23:00",
+                "2024-05-07": "15:00 - 23:00"
+            }
+        },
+        {
+            "name": "Testowy 4",
+            "availability": {}
+        },
+        {
+            "name": "Pracownik 2",
+            "availability": {
+                "2024-05-08": "14:00 - 18:00"
+            }
+        },
+        {
+            "name": "Pracownik 4",
+            "availability": {
+                "2024-05-16": "10:00 - 15:00"
+            }
+        },
+        {
+            "name": "Pracownik 1",
+            "availability": {
+                "2024-05-16": "08:00 - 15:00"
+            }
+        }
+    ]
+}
