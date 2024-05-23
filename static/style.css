@@ -39,6 +39,12 @@ header {
     color: #ffffff;
 }
 
+    header > div {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+    }
+
 /* Stylizacja tytułu w nagłówku */
 h1 {
     margin: 0;
@@ -46,6 +52,7 @@ h1 {
 
 /* Stylizacja przycisku zmiany motywu */
 #toggle-theme {
+    margin: 0;
     background: none;
     border: 2px solid #ffffff;
     color: #ffffff;
