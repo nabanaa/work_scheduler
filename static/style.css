@@ -1,0 +1,278 @@
+/* Importowanie czcionki Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Definiowanie zmiennych kolorów i czcionki w trybie jasnym i ciemnym */
+:root {
+    --bg-color-light: #ffffff; /* Kolor tła dla trybu jasnego */
+    --text-color-light: #000000; /* Kolor tekstu dla trybu jasnego */
+    --bg-color-dark: #121212; /* Kolor tła dla trybu ciemnego */
+    --text-color-dark: #e0e0e0; /* Kolor tekstu dla trybu ciemnego */
+    --accent-color: #6200ea; /* Kolor akcentu */
+    --weekend-color: #ffcccc; /* Kolor weekendów w trybie jasnym */
+    --weekend-color-dark: #661414; /* Kolor weekendów w trybie ciemnym */
+    --font-family: 'Roboto', sans-serif; /* Czcionka Roboto */
+}
+
+/* Stylizowanie ciała strony */
+body {
+    font-family: var(--font-family); /* Ustawienie czcionki */
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color-light); /* Tło w trybie jasnym */
+    color: var(--text-color-light); /* Tekst w trybie jasnym */
+    transition: background-color 0.3s, color 0.3s; /* Animacja zmiany kolorów */
+}
+
+/* Styl dla ciała strony w trybie ciemnym */
+body.dark-mode {
+    background-color: var(--bg-color-dark); /* Tło w trybie ciemnym */
+    color: var(--text-color-dark); /* Tekst w trybie ciemnym */
+}
+
+/* Stylizacja nagłówka */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* Stylizacja tytułu w nagłówku */
+h1 {
+    margin: 0;
+}
+
+/* Stylizacja przycisku zmiany motywu */
+#toggle-theme {
+    background: none;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Stylizacja przycisku zmiany motywu po najechaniu myszką */
+#toggle-theme:hover {
+    background-color: #ffffff;
+    color: var(--accent-color);
+}
+
+/* Stylizacja głównego kontenera */
+main {
+    padding: 20px;
+}
+
+/* Stylizacja kontrolek kalendarza */
+#calendar-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Stylizacja przycisków nawigacji kalendarza */
+#calendar-controls button {
+    padding: 5px 10px;
+    margin: 0 10px;
+    border: none;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Stylizacja przycisków nawigacji po najechaniu myszką */
+#calendar-controls button:hover {
+    background-color: #3700b3;
+}
+
+/* Stylizacja tekstu z aktualnym miesiącem i rokiem */
+#calendar-controls span {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Stylizacja nagłówków dni tygodnia */
+#days-of-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    font-weight: 700;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Stylizacja poszczególnych nagłówków dni tygodnia */
+#days-of-week div {
+    padding: 10px 0;
+    border: 1px solid #cccccc;
+    background-color: var(--accent-color);
+}
+
+/* Stylizacja nagłówków dni tygodnia w trybie ciemnym */
+body.dark-mode #days-of-week div {
+    background-color: #3700b3;
+}
+
+/* Stylizacja kontenera kalendarza */
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+}
+
+/* Stylizacja komórek dni w kalendarzu */
+#calendar .day {
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+    min-height: 100px;
+    position: relative;
+    text-align: center;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+    padding-bottom: 20px;
+}
+
+/* Stylizacja komórek dni w kalendarzu w trybie ciemnym */
+body.dark-mode #calendar .day {
+    background-color: #1e1e1e;
+    color: var(--text-color-dark);
+    border: 1px solid #333333;
+}
+
+/* Stylizacja numeru dnia */
+#calendar .day .date {
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+/* Stylizacja dostępności w komórkach kalendarza */
+#calendar .day .availability {
+    margin-top: 20px;
+    font-size: 0.8em;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Stylizacja weekendowych dni */
+#calendar .day.saturday, #calendar .day.sunday {
+    background-color: var(--weekend-color);
+}
+
+/* Stylizacja weekendowych dni w trybie ciemnym */
+body.dark-mode #calendar .day.saturday, body.dark-mode #calendar .day.sunday {
+    background-color: var(--weekend-color-dark);
+}
+
+/* Stylizacja komórek kalendarza po najechaniu myszką */
+#calendar .day:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+/* Stylizacja komórek kalendarza po najechaniu myszką w trybie ciemnym */
+body.dark-mode #calendar .day:hover {
+    background-color: #333333;
+}
+
+/* Stylizacja modala (okna dialogowego) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    transition: background-color 0.3s;
+}
+
+/* Stylizacja zawartości modala */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Stylizacja zawartości modala w trybie ciemnym */
+body.dark-mode .modal-content {
+    background-color: #2c2c2c;
+    color: var(--text-color-dark);
+    border: 1px solid #555555;
+}
+
+/* Stylizacja przycisku zamknięcia modala */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Stylizacja przycisku zamknięcia modala po najechaniu myszką */
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Stylizacja przycisków w modalach */
+#modal-options button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Stylizacja przycisków w modalach po najechaniu myszką */
+#modal-options button:hover {
+    background-color: #3700b3;
+}
+
+/* Stylizacja formularzy */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stylizacja etykiet formularzy */
+label {
+    margin-top: 10px;
+}
+
+/* Stylizacja pól formularzy */
+input, button {
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* Stylizacja przycisku przesłania formularza */
+button[type="submit"] {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Stylizacja przycisku przesłania formularza po najechaniu myszką */
+button[type="submit"]:hover {
+    background-color: #3700b3;
+}
