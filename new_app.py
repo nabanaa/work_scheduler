@@ -1,15 +1,15 @@
-import random
 import json
+import random
 from collections import defaultdict
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 
 class Scheduler:
-    def __init__(self, pracownicy, dostepnosci, godziny_pracy, days, month, year):
+    def __init__(self, pracownicy, dostepnosci, godziny_pracy, month, year):
         self.pracownicy = pracownicy
         self.dostepnosci = dostepnosci
         self.godziny_pracy = godziny_pracy
         self.dni = self.generate_days_in_month(month, year)
-        self.grafik = {dzień: {godzina: None for godzina in godziny_pracy} for dzień, _ in self.dni}
+        self.grafik = {dzień: {godzina: None for godzina in godziny_pracy} for dzień in self.dni}
         self.pracownicy_godziny = defaultdict(int)
 
     def generate_days_in_month(self, month, year):
@@ -17,8 +17,7 @@ class Scheduler:
         next_month = start_date.replace(day=28) + timedelta(days=4)
         end_date = next_month - timedelta(days=next_month.day)
         days = [(start_date + timedelta(days=i)).strftime('%Y-%m-%d') for i in range((end_date - start_date).days + 1)]
-        days_with_weekdays = [(day, (start_date + timedelta(days=i)).strftime('%A')) for i, day in enumerate(days)]
-        return days_with_weekdays
+        return days
 
     def przypisz_pracownika(self, dzień, godzina, pracownik):
         if self.grafik[dzień][godzina] is None:
@@ -28,7 +27,7 @@ class Scheduler:
         return False
 
     def przypisz_pierwsza_proba(self):
-        for dzień, _ in self.dni:
+        for dzień in self.dni:
             for godzina in self.godziny_pracy:
                 dostepni_pracownicy = [pracownik for pracownik in self.pracownicy 
                                        if dzień in self.dostepnosci[pracownik] 
@@ -38,7 +37,7 @@ class Scheduler:
                     self.przypisz_pracownika(dzień, godzina, wybrany_pracownik)
 
     def przypisz_druga_proba(self):
-        for dzień, _ in self.dni:
+        for dzień in self.dni:
             for godzina in self.godziny_pracy:
                 if self.grafik[dzień][godzina] is None:
                     for pracownik in self.pracownicy:
@@ -49,7 +48,7 @@ class Scheduler:
                                 break
 
     def przypisz_trzecia_proba(self):
-        for dzień, _ in self.dni:
+        for dzień in self.dni:
             for godzina in self.godziny_pracy:
                 if self.grafik[dzień][godzina] is None:
                     for pracownik in self.pracownicy:
@@ -58,7 +57,7 @@ class Scheduler:
                             break
 
     def przypisz_czwarta_proba(self):
-        for dzień, _ in self.dni:
+        for dzień in self.dni:
             for godzina in self.godziny_pracy:
                 if self.grafik[dzień][godzina] is None:
                     najmniej_obciazony_pracownik = min(self.pracownicy, key=lambda p: self.pracownicy_godziny[p])
@@ -71,8 +70,8 @@ class Scheduler:
         self.przypisz_czwarta_proba()
 
     def wyswietl_grafik(self):
-        for dzień, weekday in self.dni:
-            print(f"{dzień} ({weekday}):")
+        for dzień in self.grafik:
+            print(f"{dzień}:")
             for godzina in sorted(self.grafik[dzień]):
                 pracownik = self.grafik[dzień][godzina] if self.grafik[dzień][godzina] else "Brak"
                 print(f"  {godzina}:00 - {pracownik}")

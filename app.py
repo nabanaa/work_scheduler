@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json
 import sqlite3
 import os
-from datetime import datetime
+from datetime import date, datetime
+from collections import defaultdict
 
 app = Flask(__name__)
 
@@ -154,9 +155,11 @@ def schedule():
 
     dni = sorted(dni)
     godziny_pracy = range(8, 18)
+    miesiac = int(str(date.today()).split('-')[1])
+    rok = int(str(date.today()).split('-')[0])
 
     # Initialize and generate the schedule
-    scheduler = Scheduler(pracownicy, dostepnosci, godziny_pracy, dni)
+    scheduler = Scheduler(pracownicy, dostepnosci, godziny_pracy, dni, miesiac, rok)
     scheduler.generuj_grafik()
     
     # Collect the schedule data to display
