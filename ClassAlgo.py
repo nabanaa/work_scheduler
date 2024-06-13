@@ -1,5 +1,7 @@
+import json
 import random
 from collections import defaultdict
+from datetime import datetime, timedelta
 
 class Scheduler:
     def __init__(self, pracownicy, dostepnosci, godziny_pracy, dni):
@@ -8,7 +10,7 @@ class Scheduler:
         self.godziny_pracy = godziny_pracy
         self.dni = dni
         self.grafik = {dzień: {godzina: None for godzina in godziny_pracy} for dzień in dni}
-        self.pracownicy_godziny = defaultdict(int)  # Słownik do śledzenia liczby godzin każdego pracownika
+        self.pracownicy_godziny = defaultdict(int)
     
     def przypisz_pracownika(self, dzień, godzina, pracownik):
         if self.grafik[dzień][godzina] is None:
@@ -67,18 +69,35 @@ class Scheduler:
                 pracownik = self.grafik[dzień][godzina] if self.grafik[dzień][godzina] else "Brak"
                 print(f"  {godzina}:00 - {pracownik}")
 
-# Dane wejściowe
-pracownicy = ["Anna", "Jan", "Kasia", "Zosia"]
-dostepnosci = {
-    "Anna": {"poniedziałek": [(8, 12), (14, 18)], "wtorek": [(8, 12)], "środa": [(14, 18)]},
-    "Jan": {"poniedziałek": [(12, 16)], "czwartek": [(8, 12)], "piątek": [(10, 14)]},
-    "Kasia": {"środa": [(8, 12)], "czwartek": [(12, 16)], "piątek": [(14, 18)]},
-    "Zosia": {"wtorek": [(10, 18)]}
-}
-godziny_pracy = range(8, 18)  # 8:00 - 18:00
-dni = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek"]
+def convert_availability(availability):
+    converted = {}
+    for day, time_range in availability.items():
+        start_str, end_str = time_range.split(" - ")
+        start_time = datetime.strptime(start_str, "%H:%M")
+        end_time = datetime.strptime(end_str, "%H:%M")
+        hours = [(start_time.hour, end_time.hour)]
+        converted[day] = hours
+    return converted
 
-# Inicjalizacja i generowanie grafiku
+# Read JSON data
+with open('dane.json', 'r') as file:
+    data = json.load(file)
+
+pracownicy = []
+dostepnosci = {}
+dni = set()
+
+for employee in data['employees']:
+    name = employee['name']
+    availability = convert_availability(employee['availability'])
+    pracownicy.append(name)
+    dostepnosci[name] = availability
+    dni.update(availability.keys())
+
+dni = sorted(dni)
+godziny_pracy = range(8, 18)
+
+# Initialize and generate the schedule
 scheduler = Scheduler(pracownicy, dostepnosci, godziny_pracy, dni)
 scheduler.generuj_grafik()
 scheduler.wyswietl_grafik()
