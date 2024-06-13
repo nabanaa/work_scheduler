@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Schedule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Generated Schedule</h1>
+    </header>
+    <main id="calendar-view">
+        <div id="calendar-controls">
+            <button id="prev-month">Poprzedni miesiąc</button>
+            <span id="current-month"></span>
+            <button id="next-month">Następny miesiąc</button>
+        </div>
+        <div id="days-of-week">
+            <div>Poniedziałek</div>
+            <div>Wtorek</div>
+            <div>Środa</div>
+            <div>Czwartek</div>
+            <div>Piątek</div>
+            <div>Sobota</div>
+            <div>Niedziela</div>
+        </div>
+        <div id="calendar">
+            {% for day, hours in schedule.items() %}
+                <div class="day">
+                    <div class="date">{{ day }}</div>
+                    {% for hour, employee in hours.items() %}
+                        <div class="availability">{{ hour }}:00 - {{ employee if employee else 'None' }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    <button onclick="window.location.href='/'">Back to Main</button>
+</body>
+</html>

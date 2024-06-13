@@ -2,35 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Ustawienie viewportu dla responsywności -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafik Pracy</title>
-    <!-- Dołączenie pliku CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <!-- Dołączenie czcionki Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>Grafik Pracy</h1>
-            <div>
-                <!-- Imie i Nazwisko zalogowanego użytkownika -->
-                <h2>Work scheduler</h2>
-                <!-- Przycisk do zmiany trybu ciemnego/jasnego -->
-                <button id="toggle-theme">Zmień tryb</button>
-            </div>
+        <div>
+            <h2>Work scheduler</h2>
+            <button id="toggle-theme">Zmień tryb</button>
+        </div>
     </header>
     <main id="calendar-view">
         <div id="calendar-controls">
-            <!-- Przycisk do przejścia do poprzedniego miesiąca -->
             <button id="prev-month">Poprzedni miesiąc</button>
-            <!-- Wyświetlenie bieżącego miesiąca -->
             <span id="current-month"></span>
-            <!-- Przycisk do przejścia do następnego miesiąca -->
             <button id="next-month">Następny miesiąc</button>
         </div>
         <div id="days-of-week">
-            <!-- Nazwy dni tygodnia -->
             <div>Poniedziałek</div>
             <div>Wtorek</div>
             <div>Środa</div>
@@ -39,23 +30,18 @@
             <div>Sobota</div>
             <div>Niedziela</div>
         </div>
-        <!-- Miejsce na kalendarz -->
         <div id="calendar"></div>
     </main>
-
-    <!-- Modal do zarządzania dyspozycyjnością -->
+    <button onclick="window.location.href='/schedule'">View Generated Schedule</button>
     <div id="availability-modal" class="modal">
         <div class="modal-content">
-            <!-- Przycisk do zamykania modala -->
             <span class="close">&times;</span>
             <h2>Dyspozycyjność</h2>
             <div id="modal-options">
-                <!-- Opcje w modal -->
                 <button id="add-option">Dodaj</button>
                 <button id="delete-option">Usuń</button>
                 <button id="exit-option">Wyjdź</button>
             </div>
-            <!-- Formularz do dodawania dyspozycyjności -->
             <form id="availability-form" style="display:none;">
                 <input type="hidden" id="modal-date">
                 <label for="employee">Pracownik:</label>
@@ -66,7 +52,6 @@
                 <input type="time" id="end-time" name="end-time" required>
                 <button type="submit">Zapisz</button>
             </form>
-            <!-- Formularz do usuwania dyspozycyjności -->
             <form id="delete-form" style="display:none;">
                 <input type="hidden" id="delete-date">
                 <label for="delete-employee">Pracownik:</label>
@@ -75,8 +60,6 @@
             </form>
         </div>
     </div>
-
-    <!-- Dołączenie pliku JavaScript -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
